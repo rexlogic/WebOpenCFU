@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>WebOpenCFU</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	</head>
+	<body>
+<h2>WebOpenCFU</h2>
+<p align="justify">A JS implementation of OpenCFU using the OpenCV WebAssembly.</p>
+<h3>Original developer</h3>
+<p align="justify">Quentin Geissmann - <a href=https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0054072>OpenCFU, a New Free and Open-Source Software to Count Cell Colonies and Other Circular Objects (PDF)</a></p>
+
+<em>Website: <a href=http://opencfu.sourceforge.net/>OpenCFU<a></em>
+<div style="-ms-box-sizing:content-box; -moz-box-sizing:content-box; -webkit-box-sizing:content-box; box-sizing:content-box;">
+  
+</div><br>
+
+<div id="container">
+  <canvas style="border: 1px solid black;" id="canvasOutput" width=320 height=240></canvas>
+</div>
+<div style="display: none;">
+  <input type="checkbox" id="cfu" name="classifier" value="cfu" checked>
+  <label for="cfu">CFU Classifier</label>
+  <input type="checkbox" id="cfuc" name="cascade" value="cfuc">
+  <label for="cfups">CFU PS Classifier</label>
+</div>
+<div style="display: none;">
+  <video id="video" class="hidden">No video support.</video>
+</div>
+<h2>License</h2>
+<p align="justify"><a href=https://www.gnu.org/licenses/gpl-3.0-standalone.html>GNU General Public License v3.0</a></p>
+<script src="index.js"></script>
+<script>
+var Module = {
+   wasmBinaryFile: 'wasm/opencv_js.wasm',
+  preRun: [function() {
+    Module.FS_createPreloadedFile('/', 'trainedClassifier.xml', 'data/trainedClassifier.xml', true, false);
+    Module.FS_createPreloadedFile('/', 'trainedClassifierPS.xml', 'data/trainedClassifierPS.xml', true, false);
+  }],
+  _main: function() {opencvIsReady();}
+};
+</script>
+<script async src="wasm/opencv.js"></script>
+	</body>
+</html>
